@@ -12,7 +12,7 @@ return new class extends Migration
     public function up()
     {
         Schema::dropIfExists('data_shipping');
-        
+
         Schema::create('data_shipping', function (Blueprint $table) {
             $table->id('resi');
             $table->date('tanggal_pengiriman')->nullable();

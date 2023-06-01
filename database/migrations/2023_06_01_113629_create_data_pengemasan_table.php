@@ -12,16 +12,16 @@ return new class extends Migration
     public function up()
     {
         Schema::dropIfExists('data_pengemasan');
-        
+
         Schema::create('data_pengemasan', function (Blueprint $table) {
             $table->id('id_pengemasan');
-            $table->unsignedBigInteger('id_pesanan');
+            $table->integer('id_pesanan');
             $table->string('nama_pengguna');
             $table->string('alamat');
             $table->integer('no_hp');
             $table->integer('jumlah_pesanan');
             $table->string('status');
-            $table->integer('resi')->nullable();
+            $table->unsignedBigInteger('resi')->nullable();
             $table->foreign('resi')->references('resi')->on('data_shipping');
             $table->string('nama_barang');
             $table->string('deskripsi');
