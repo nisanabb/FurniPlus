@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\data_pengemasan;
 use Illuminate\Http\Request;
 
+
+
 class DataPengemasanController extends Controller
 {
     /**
@@ -13,6 +15,17 @@ class DataPengemasanController extends Controller
     public function index()
     {
         //
+        try {
+            $response = Http::get('http://127.0.0.1:8000/api/data-barang');
+            $data= $response->json();
+            return response()->json($data);
+
+        } catch(RequestException $e) {
+            return response()->json(['error' => 'Gagal dalam mengambil data barang']);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Gagal dalam mengambil data barang']);
+        }
     }
 
     /**

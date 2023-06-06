@@ -13,6 +13,9 @@ class HasilPengirimanController extends Controller
     public function index()
     {
         //
+        $pengiriman = HasilPengiriman ::where('deskripsi_pengiriman', 'selesai dikirim')->get();
+        return $pengiriman;
+
     }
 
     /**
@@ -53,6 +56,12 @@ class HasilPengirimanController extends Controller
     public function update(Request $request, hasil_pengiriman $hasil_pengiriman)
     {
         //
+        {
+            $kiriman = hasil_pengiriman::findorfail($id_pengiriman);
+            $kiriman ->update($request->all());
+            return $kiriman;
+    
+        }
     }
 
     /**
