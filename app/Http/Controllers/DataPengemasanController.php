@@ -16,7 +16,7 @@ class DataPengemasanController extends Controller
     {
         //
         try {
-            $response = Http::get('http://127.0.0.1:8000/api/data-barang');
+            $response = Http::get('http://127.0.0.1:8001/api/data-barang');
             $data= $response->json();
             return response()->json($data);
 
