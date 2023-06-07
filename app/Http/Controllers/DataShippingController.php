@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\data_shipping;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class DataShippingController extends Controller
 {
@@ -37,6 +38,35 @@ class DataShippingController extends Controller
     public function show(data_shipping $data_shipping)
     {
         //
+    }
+    
+    // Pengembalian Barang PROBIS 3.5
+    public function return()
+    {
+        try {
+            $response = Http::get("http://127.0.0.1:8000/api/pengiriman/kirim");
+            $data= $response->json();
+            return response()->json($data);
+
+        } catch(RequestException $e) {
+            return response()->json(['error' => 'Gagal dalam mengambil data barang']);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Gagal dalam mengambil data barang']);
+        }
+    }
+    
+    public function returnbyid($id)
+    {
+        try {
+            $response = Http::get("http://127.0.0.1:8000/api/pengiriman/kirim/{$id}");
+            $data = $response->json();
+            return response()->json($data);
+        } catch (RequestException $e) {
+            return response()->json(['error' => 'Gagal dalam mengambil data barang']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Gagal dalam mengambil data barang']);
+        }
     }
 
     /**

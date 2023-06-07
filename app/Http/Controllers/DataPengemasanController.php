@@ -15,6 +15,7 @@ class DataPengemasanController extends Controller
      */
     public function index()
     {
+        //
         try {
             $response = Http::get('http://127.0.0.1:8000/api/data-barang');
             $data= $response->json();
@@ -47,30 +48,19 @@ class DataPengemasanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id_barang = null)
+    public function showbyid($id_barang)
     {
         try {
-            $response = Http::get('http://127.0.0.1:8000/api/data-barang');
+            $response = Http::get("http://127.0.0.1:8000/api/data-barang/{$id_barang}");
             $data = $response->json();
-    
-            if ($id_barang) {
-                $filteredData = collect($data)->where('id', $id_barang)->first();
-    
-                if ($filteredData) {
-                    return response()->json($filteredData);
-                } else {
-                    return response()->json(['error' => 'Data tidak ditemukan'], 404);
-                }
-            } else {
-                return response()->json($data);
-            }
+            return response()->json($data);
         } catch (RequestException $e) {
-            return response()->json(['error' => 'Gagal dalam mengambil data barang'], 500);
+            return response()->json(['error' => 'Gagal dalam mengambil data barang']);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Gagal dalam mengambil data barang'], 500);
+            return response()->json(['error' => 'Gagal dalam mengambil data barang']);
         }
     }
-     
+    
     /**
      * Show the form for editing the specified resource.
      */
@@ -82,9 +72,40 @@ class DataPengemasanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, data_pengemasan $data_pengemasan)
+    public function update(Request $request, $id_barang)
     {
-        //
+        try {
+            $response = Http::get("http://127.0.0.1:8000/api/data-barang/{$id_barang}");
+            $existingData = $response->json();
+
+            // Validate request data
+            $validatedData = $request->validate([
+                'resi.no_resi' => 'required',
+                'resi.tanggal_pengiriman' => 'required',
+                'resi.estimasi' => 'required',
+                'resi.status' => 'required',
+                'status' => 'required',
+                'message' => 'required',
+            ]);
+
+            // Update 
+            $updatedData = array_merge($existingData, [
+                'resi' => [
+                    [
+                        'no_resi' => $validatedData['resi']['no_resi'],
+                        'tanggal_pengiriman' => $validatedData['resi']['tanggal_pengiriman'],
+                        'estimasi' => $validatedData['resi']['estimasi'],
+                        'status' => $validatedData['resi']['status'],
+                    ]
+                ],
+                'status' => $validatedData['status'],
+                'message' => $validatedData['message'],
+            ]);
+            return response()->json(['success' => 'Data resi berhasil diperbarui']);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Gagal memperbarui data resi']);
+        }
     }
 
     /**
