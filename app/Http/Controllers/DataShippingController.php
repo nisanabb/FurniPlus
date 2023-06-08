@@ -44,7 +44,7 @@ class DataShippingController extends Controller
     public function return()
     {
         try {
-            $response = Http::get("http://127.0.0.1:8000/api/pengiriman/kirim");
+            $response = Http::get("http://127.0.0.1:8001/api/pengiriman/kirim");
             $data= $response->json();
             return response()->json($data);
 
@@ -59,7 +59,7 @@ class DataShippingController extends Controller
     public function returnbyid($id)
     {
         try {
-            $response = Http::get("http://127.0.0.1:8000/api/pengiriman/kirim/{$id}");
+            $response = Http::get("http://127.0.0.1:8001/api/pengiriman/kirim/{$id}");
             $data = $response->json();
             return response()->json($data);
         } catch (RequestException $e) {

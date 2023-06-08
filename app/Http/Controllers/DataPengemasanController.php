@@ -51,7 +51,7 @@ class DataPengemasanController extends Controller
     public function showbyid($id_barang)
     {
         try {
-            $response = Http::get("http://127.0.0.1:8000/api/data-barang/{$id_barang}");
+            $response = Http::get("http://127.0.0.1:8001/api/data-barang/{$id_barang}");
             $data = $response->json();
             return response()->json($data);
         } catch (RequestException $e) {
@@ -74,7 +74,7 @@ class DataPengemasanController extends Controller
     public function update(Request $request, $id_barang)
     {
         try {
-            $response = Http::get("http://127.0.0.1:8000/api/data-barang/{$id_barang}");
+            $response = Http::get("http://127.0.0.1:8001/api/data-barang/{$id_barang}");
             $existingData = $response->json();
 
             // Validate request data
