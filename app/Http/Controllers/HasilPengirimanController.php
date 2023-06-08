@@ -13,8 +13,12 @@ class HasilPengirimanController extends Controller
     public function index()
     {
         //
-        $pengiriman = HasilPengiriman ::where('deskripsi_pengiriman', 'selesai dikirim')->get();
-        return $pengiriman;
+        
+
+        $status_kirim = hasil_pengiriman ::where('deskripsi_pengiriman', 'selesai dikirim')->get();
+        return response()->json([
+            'status_kirim' => $status_kirim
+        ]);
 
     }
 

@@ -17,7 +17,7 @@ class dataShipping extends Seeder
             [
                 'resi'=>339202,
                 'tanggal_pengiriman'=>'2023-06-01',
-                'deskripsi_pengiriman'=>'2023-06-01',
+                'deskripsi_pengiriman'=>'selesai dikirim',
                 'estimasi_sampai'=>'2023-06-04',
                 'resi'=>null,
             ],
