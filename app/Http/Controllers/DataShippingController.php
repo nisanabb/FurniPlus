@@ -14,6 +14,10 @@ class DataShippingController extends Controller
     public function index()
     {
         //
+        $status_kirim = hasil_pengiriman ::where('deskripsi_pengiriman', 'selesai dikirim')->get();
+        return response()->json([
+            'status_kirim' => $status_kirim
+        ]);
     }
 
     /**
@@ -83,6 +87,12 @@ class DataShippingController extends Controller
     public function update(Request $request, data_shipping $data_shipping)
     {
         //
+        {
+            $kiriman = hasil_pengiriman::findorfail($id_pengiriman);
+            $kiriman ->update($request->all());
+            return $kiriman;
+    
+        }
     }
 
     /**
