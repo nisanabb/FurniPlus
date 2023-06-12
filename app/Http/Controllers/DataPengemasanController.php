@@ -33,7 +33,6 @@ class DataPengemasanController extends Controller
                 'no_hp' => $value[$urutan]['no_hp'],
                 'jumlah_pesanan' => $value[$urutan]['jumlah_pesanan'],
                 'status' => $value[$urutan]['status'],
-                'resi'=> $value[$urutan]['resi'],
                 'nama_barang' => $value[$urutan]['nama_barang'],
                 'deskripsi' => $value[$urutan]['deskripsi'],
             ]);
@@ -62,15 +61,16 @@ class DataPengemasanController extends Controller
      */
     public function showbyid($id)
     {
+        // Fetch the updated data from the API
+        $this->fetchDataFromAPI();
+
         try {
-            // $response = Http::get("http://127.0.0.1:8001/api/data-barang/");
-            $response = Http::get("http://127.0.0.1:8001/api/pengiriman/kirim/{$id}");
-            $data = $response->json();
-            return $data;
-        } catch (RequestException $e) {
-            return response()->json(['error' => 'Gagal dalam mengambil data barang']);
+            // Retrieve the updated data from the database
+            $data = PengemasanModel::findOrFail($id);
+
+            return response()->json($data);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Gagal dalam mengambil data barang']);
+            return response()->json(['error' => 'Gagal dalam mengambil data pengemasan']);
         }
     }
     /**
