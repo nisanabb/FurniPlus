@@ -18,20 +18,12 @@ use App\Http\Controllers\DataShippingController;
 |
 */
 
-Route::get('hasil_pengiriman', [HasilPengirimanController::class, 'index']);
-
 // PROBIS PICKUP
-Route::get('/pengemasan', [DataPengemasanController::class, 'index']); //probis pickup cm ganti nama pengemasan biar enak
-Route::get('/pengemasan/{id_pengemasan}', [DataPengemasanController::class, 'showbyid']); //pengemasan/id_pesanan
-// Route::put('/pengemasan/{id_pengemasan}', [DataPengemasanController::class, 'showbyid']);  //update nomor resi disini
+Route::get('pickup/fetch', [DataPengemasanController::class, 'fetchDataFromAPI']); //untuk ambil data dari api
+Route::get('pickup', [DataPengemasanController::class, 'index']); 
+Route::get('pickup/{id}', [DataPengemasanController::class, 'showbyid']); //untuk ambil data berdasarkan id
+Route::put('pickup/{id_pengemasan}', [DataPengemasanController::class, 'update']); //ini untuk update
 
-Route::get('/fetch-data', [DataPengemasanController::class, 'fetchDataFromAPI']);
-Route::get('/pengiriman', [DataPengemasanController::class, 'getpengirimandaridatabase']); //kepake jika storemdari api ke lokalnya udah bisa
-
-
-// PROBIS RESI PENGIRIMAN
-Route::get('pickup/{id}', [DataPengemasanController::class, 'showbyid']);
-Route::put('pickup/{id}', [DataPengemasanController::class, 'update']);
 
 // PROBIS PENGEMBALIAN BARANG
 Route::get('return/', [DataShippingController::class, 'return']);
