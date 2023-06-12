@@ -60,11 +60,11 @@ class DataPengemasanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function showbyid($id_pengemasan)
+    public function showbyid($id)
     {
         try {
             // $response = Http::get("http://127.0.0.1:8001/api/data-barang/");
-            $response = Http::get("http://127.0.0.1:8001/api/pesanan/$id_pengemasan");
+            $response = Http::get("http://127.0.0.1:8001/api/pengiriman/kirim/{$id}");
             $data = $response->json();
             return $data;
         } catch (RequestException $e) {
