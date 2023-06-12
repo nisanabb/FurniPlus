@@ -14,13 +14,6 @@ use GuzzleHttp\Client;
 class DataPengemasanController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        return PengemasanModel::all();
-    }
-    /**
      * Show the form for creating a new resource.
      */
     public function fetchDataFromAPI()
@@ -46,7 +39,17 @@ class DataPengemasanController extends Controller
             ]);
             $urutan += 1;
         };
+    /**
+     * Display a listing of the resource.
+     */
+
     }
+    public function index()
+    {
+        return PengemasanModel::all();
+    }
+
+
     /**
      * Store a newly created resource in storage.
      */
