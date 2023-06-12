@@ -24,10 +24,12 @@ Route::get('pickup', [DataPengemasanController::class, 'index']);
 Route::get('pickup/{id}', [DataPengemasanController::class, 'showbyid']); //untuk ambil data berdasarkan id
 Route::put('pickup/{id_pengemasan}', [DataPengemasanController::class, 'update']); //ini untuk update
 
-
 // PROBIS PENGEMBALIAN BARANG
 Route::get('return/', [DataShippingController::class, 'return']);
 Route::get('return/{id}', [DataShippingController::class, 'returnbyid']);
+
+// PROBIS UPDATE PELACAKAN DAN PEMANTAUAN
+Route::put('/pengemasan/{id_pengemasan}', [DataPengemasanController::class, 'updateStatus']);
 
 
 

@@ -98,4 +98,18 @@ class DataPengemasanController extends Controller
     {
         //
     }
+
+    public function updateStatus(Request $request, $id_pengemasan)
+    {
+        $pengemasan = PengemasanModel::find($id_pengemasan);
+
+        if (!$pengemasan) {
+            return response()->json(['error' => 'Data pengemasan tidak ditemukan'], 404);
+        }
+
+        $pengemasan->status = $request->input('status');
+        $pengemasan->save();
+
+        return response()->json(['message' => 'Delivery status updated successfully', 'data' => $pengemasan]);
+    }
 }
