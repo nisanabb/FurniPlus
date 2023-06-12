@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\data_pengemasan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Models\PengemasanModel;
 
 
 
@@ -15,9 +16,9 @@ class DataPengemasanController extends Controller
      */
     public function index()
     {
-        //
+        //ambil database dari inventory = 
         try {
-            $response = Http::get('http://127.0.0.1:8001/api/data-barang');
+            $response = Http::get('http://127.0.0.1:8000/api/pesanan');
             $data= $response->json();
             return response()->json($data);
 
@@ -32,10 +33,31 @@ class DataPengemasanController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+
+
+    public function fetchDataFromAPI()
     {
-        //
+        $response = Http::get('http://127.0.0.1:8000/api/pesanan');
+        $data = $response->json();
+
+    foreach ($data as $item) {
+        $model = new PengemasanModel();
+        $model->id_pengemasan = $item['id_pengemasan'];
+        $model->id_pesanan = $item['id_pesanan'];
+        $model->id_barang = $item['id_barang'];
+        $model->id_user = $item['id_user'];
+        $model->nama_pengguna = $item['nama_pengguna'];
+        $model->alamat = $item['alamat'];
+        $model->no_hp = $item['no_hp'];
+        $model->jumlah_harga = $item['jumlah_harga'];
+        $model->total_harga = $item['total_harga'];
+        $model->status = $item['status'];
+        $model->resi = $item['resi'];
+        $model->save();
     }
+}
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -48,10 +70,11 @@ class DataPengemasanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function showbyid($id_barang)
+    public function showbyid($id_pengemasan)
     {
         try {
-            $response = Http::get("http://127.0.0.1:8001/api/data-barang/{$id_barang}");
+            // $response = Http::get("http://127.0.0.1:8001/api/data-barang/{$id_barang}");
+            $response = Http::get("http://127.0.0.1:8000/api/pesanan/{$id_pengemasan}");
             $data = $response->json();
             return response()->json($data);
         } catch (RequestException $e) {

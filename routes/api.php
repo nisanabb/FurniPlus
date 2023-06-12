@@ -21,7 +21,13 @@ use App\Http\Controllers\DataShippingController;
 Route::get('hasil_pengiriman', [HasilPengirimanController::class, 'index']);
 
 // PROBIS PICKUP
-Route::get('pickup/', [DataPengemasanController::class, 'index']);
+Route::get('/pengemasan', [DataPengemasanController::class, 'index']); //probis pickup cm ganti nama pengemasan biar enak
+Route::get('/pengemasan/{id_pengemasan}', [DataPengemasanController::class, 'showbyid']); //pengemasan/id_pesanan
+// Route::put('/pengemasan/{id_pengemasan}', [DataPengemasanController::class, 'showbyid']);  //update nomor resi disini
+
+Route::get('/fetch-data', [DataPengemasanController::class, 'fetchDataFromAPI']);
+Route::get('/pengiriman', [DataPengemasanController::class, 'getpengirimandaridatabase']); //kepake jika storemdari api ke lokalnya udah bisa
+
 
 // PROBIS RESI PENGIRIMAN
 Route::get('pickup/{id}', [DataPengemasanController::class, 'showbyid']);
