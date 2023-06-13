@@ -26,8 +26,9 @@ Route::get('pickup/{id}', [DataPengemasanController::class, 'showbyid']); //untu
 Route::put('pickup/{id_pengemasan}', [DataPengemasanController::class, 'update']); //ini untuk update
 
 // PROBIS PENGEMBALIAN BARANG
-Route::get('return', [DataPengembalianController::class, 'return']);
-Route::get('return/{id}', [DataPengembalianController::class, 'returnbyid']);
+Route::get('return', [DataPengembalianController::class, 'return']); //fetch
+Route::get('return/show', [DataPengembalianController::class, 'showall']); //show
+Route::get('return/{id}', [DataPengembalianController::class, 'showbyid']);
 
 
 

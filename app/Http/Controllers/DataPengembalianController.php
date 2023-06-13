@@ -22,10 +22,10 @@ class DataPengembalianController extends Controller
     public function return()
     {
         $client = new Client();
-        $response = $client->request('GET', 'http://127.0.0.1:8001/api/refund/data');
+        $response = $client->request('GET', 'http://127.0.0.1:8001/api/refundfix');
         $body = json_decode($response->getBody()->getContents(), true);
-        dd($body);
-        $data = $body['data_barang'];
+        // dd($body);
+        $data = $body['data'];
         $order = 0;
         if (DataPengembalian::exists()){
             foreach ($data as $v){
@@ -77,9 +77,32 @@ class DataPengembalianController extends Controller
 
 
 
+    public function showall (){
+        $dataRefund = DataPengembalian::all();
+        if ($dataRefund->isEmpty()) {
+            return response()->json([
+                'message' => 'No data found'
+            ]);
+        }
 
+        return response()->json([
+            'code' => '200',
+            'message' => 'Sukses',
+            'data_refund' => $dataRefund
+        ], 200, [], JSON_PRETTY_PRINT);
+    }
 
+    public function showbyid ($id_refund) {
+        $id_refund = DataPengembalian::findorfail($id_refund);
+        if ($id_refund) {
+            return response()->json([
+                'code' => '200',
+                'message' => 'Sukses',
+                'data' => $id_refund
+            ], 200, [], JSON_PRETTY_PRINT);
+        }
 
+    }
 
 
 
