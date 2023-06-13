@@ -11,21 +11,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('data_pengemasan');
-        Schema::create('data_pengemasan', function (Blueprint $table) {
-            $table->id('id_pengemasan');
-            $table->integer('id_pesanan');
+        Schema::dropIfExists('data_pengembalian');
+
+        Schema::create('data_pengembalian', function (Blueprint $table) {
+            $table->id('id_refund');
+            $table->unsignedBigInteger('id');
             $table->string('nama_pengguna');
             $table->string('alamat');
             $table->integer('no_hp');
             $table->integer('jumlah_pesanan');
             $table->string('status');
-            $table->string('resi')->nullable();
-            $table->string('nama_barang');
-            $table->string('deskripsi');
-            $table->date('tanggal_pengiriman')->nullable();
-            $table->string('deskripsi_pengiriman')->nullable();
-            $table->date('estimasi_sampai')->nullable();
+            $table->integer('resi')->nullable();
+            $table->string('nama_barang')->nullable();;
+            $table->string('alasan_refund');
+            $table->string('deskripsi')->nullable();
             $table->timestamps();
         });
     }
@@ -35,7 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('data_pengembalians');
     }
 };
-
-
