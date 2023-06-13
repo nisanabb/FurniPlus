@@ -107,8 +107,7 @@ class DataPengemasanController extends Controller
             return response()->json(['error' => 'Data pengemasan tidak ditemukan'], 404);
         }
 
-        $pengemasan->status = $request->input('status');
-        $pengemasan->save();
+        $pengemasan -> update($request->only('status'));
 
         return response()->json(['message' => 'Delivery status updated successfully', 'data' => $pengemasan]);
     }
