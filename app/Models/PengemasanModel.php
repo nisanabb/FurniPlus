@@ -11,9 +11,5 @@ class PengemasanModel extends Model
 
     protected $table = 'data_pengemasan';
     protected $primaryKey = 'id_pengemasan';
-    protected $guarded = [];
-    protected $fillable = [
-        'resi',
-        // Add other fillable fields here if needed
-    ];
+    protected $guarded = ['id_pengemasan'];
 }

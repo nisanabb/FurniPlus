@@ -29,7 +29,7 @@ Route::get('return/', [DataShippingController::class, 'return']);
 Route::get('return/{id}', [DataShippingController::class, 'returnbyid']);
 
 // PROBIS UPDATE PELACAKAN DAN PEMANTAUAN
-Route::put('/pengemasan/{id_pengemasan}', [DataPengemasanController::class, 'updateStatus']);
+Route::put('/pengiriman/{id_pengemasan}', [DataPengemasanController::class, 'updateStatus']);
 
 
 
