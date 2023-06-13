@@ -19,30 +19,83 @@ class DataPengemasanController extends Controller
     public function fetchDataFromAPI()
     {
         $client = new Client();
-        $response = $client->request('GET', 'http://127.0.0.1:8001/api/pengiriman/kirim');
+        $response = $client->request('GET', 'http://127.0.0.1:8001/api/kirim-barang');
         $body = json_decode($response->getBody()->getContents(), true);
-        $value = $body['response'];
+        $value = $body['data_barang'];
         $urutan = 0;
-        foreach ($value as $v){
-            PengemasanModel::updateOrCreate([
-                'id_pesanan' => $value[$urutan]['id_pesanan']
-            ],[
-                'id_pesanan' => $value[$urutan]['id_pesanan'],
-                'nama_pengguna' => $value[$urutan]['nama_pengguna'],
-                'alamat' => $value[$urutan]['alamat'],
-                'no_hp' => $value[$urutan]['no_hp'],
-                'jumlah_pesanan' => $value[$urutan]['jumlah_pesanan'],
-                'status' => $value[$urutan]['status'],
-                'nama_barang' => $value[$urutan]['nama_barang'],
-                'deskripsi' => $value[$urutan]['deskripsi'],
-            ]);
-            $urutan += 1;
-        };
-    /**
-     * Display a listing of the resource.
-     */
-
+        if (PengemasanModel::exists()){
+            foreach ($value as $v){
+                PengemasanModel::updateOrCreate([
+                    'id_pesanan' => $value[$urutan]['id_pesanan']
+                ],[
+                    'id_pesanan' => $value[$urutan]['id_pesanan'],
+                    'nama_pengguna' => $value[$urutan]['nama_pengguna'],
+                    'alamat' => $value[$urutan]['alamat'],
+                    'no_hp' => $value[$urutan]['no_hp'],
+                    'jumlah_pesanan' => $value[$urutan]['jumlah_pesanan'],
+                    'status' => $value[$urutan]['status'],
+                    'nama_barang' => $value[$urutan]['nama_barang'],
+                    'deskripsi' => $value[$urutan]['deskripsi'],
+                ]);
+                $urutan += 1;
+            }
+        }else{
+            foreach ($value as $v){
+                PengemasanModel::create([
+                    'id_pesanan' => $value[$urutan]['id_pesanan'],
+                    'nama_pengguna' => $value[$urutan]['nama_pengguna'],
+                    'alamat' => $value[$urutan]['alamat'],
+                    'no_hp' => $value[$urutan]['no_hp'],
+                    'jumlah_pesanan' => $value[$urutan]['jumlah_pesanan'],
+                    'status' => $value[$urutan]['status'],
+                    'nama_barang' => $value[$urutan]['nama_barang'],
+                    'deskripsi' => $value[$urutan]['deskripsi'],
+                ]);
+                $urutan += 1;
+        }
     }
+    }
+
+    public function fetchDataFromAPI2()
+    {
+        $client = new Client();
+        $response = $client->request('GET', 'http://127.0.0.1:8001/api/kirim-barang'); #sesuaikan dengan yang dari inventory ini untuk pengembalian
+        $body = json_decode($response->getBody()->getContents(), true);
+        $value = $body['data_barang']; #oni juga sesuaikan dengan di inventory yang data_barang nya 
+        $urutan = 0;
+        if (PengemasanModel::exists()){
+            foreach ($value as $v){
+                PengemasanModel::updateOrCreate([
+                    'id_pesanan' => $value[$urutan]['id_pesanan']
+                ],[
+                    'id_pesanan' => $value[$urutan]['id_pesanan'],
+                    'nama_pengguna' => $value[$urutan]['nama_pengguna'],
+                    'alamat' => $value[$urutan]['alamat'],
+                    'no_hp' => $value[$urutan]['no_hp'],
+                    'jumlah_pesanan' => $value[$urutan]['jumlah_pesanan'],
+                    'status' => $value[$urutan]['status'],
+                    'nama_barang' => $value[$urutan]['nama_barang'],
+                    'deskripsi' => $value[$urutan]['deskripsi'],
+                ]);
+                $urutan += 1;
+            }
+        }else{
+            foreach ($value as $v){
+                PengemasanModel::create([
+                    'id_pesanan' => $value[$urutan]['id_pesanan'],
+                    'nama_pengguna' => $value[$urutan]['nama_pengguna'],
+                    'alamat' => $value[$urutan]['alamat'],
+                    'no_hp' => $value[$urutan]['no_hp'],
+                    'jumlah_pesanan' => $value[$urutan]['jumlah_pesanan'],
+                    'status' => $value[$urutan]['status'],
+                    'nama_barang' => $value[$urutan]['nama_barang'],
+                    'deskripsi' => $value[$urutan]['deskripsi'],
+                ]);
+                $urutan += 1;
+        }
+    }
+    }
+
     public function index()
     {
         return PengemasanModel::all();
