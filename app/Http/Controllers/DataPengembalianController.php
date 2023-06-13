@@ -22,9 +22,9 @@ class DataPengembalianController extends Controller
     public function return()
     {
         $client = new Client();
-        $response = $client->request('GET', 'http://furniplus-inven.test/api/refund/data');
+        $response = $client->request('GET', 'http://127.0.0.1:8001/api/refund/data');
         $body = json_decode($response->getBody()->getContents(), true);
-        // dd($body);
+        dd($body);
         $data = $body['data_barang'];
         $order = 0;
         if (DataPengembalian::exists()){
