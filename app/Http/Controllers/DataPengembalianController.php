@@ -72,11 +72,6 @@ class DataPengembalianController extends Controller
     }
     }
 
-
-
-
-
-
     public function showall (){
         $dataRefund = DataPengembalian::all();
         if ($dataRefund->isEmpty()) {
@@ -103,12 +98,6 @@ class DataPengembalianController extends Controller
         }
 
     }
-
-
-
-
-
-
     /**
      * Show the form for creating a new resource.
      */
