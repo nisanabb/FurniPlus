@@ -19,7 +19,7 @@ class DataPengemasanController extends Controller
     public function fetchDataFromAPI()
     {
         $client = new Client();
-        $response = $client->request('GET', 'http://127.0.0.1:8001/api/kirim-barang');
+        $response = $client->request('GET', 'http://127.0.0.1:8001/api/pengiriman/kirim');
         $body = json_decode($response->getBody()->getContents(), true);
         $value = $body['data_barang'];
         $urutan = 0;

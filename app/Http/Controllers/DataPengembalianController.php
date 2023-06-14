@@ -22,25 +22,22 @@ class DataPengembalianController extends Controller
     public function return()
     {
         $client = new Client();
-        $response = $client->request('GET', 'http://127.0.0.1:8001/api/refundfix');
+        $response = $client->request('GET', 'http://127.0.0.1:8001/api/refund/show');
         $body = json_decode($response->getBody()->getContents(), true);
         // dd($body);
-        $data = $body['data'];
+        $data = $body['data_refund'];
         $order = 0;
         if (DataPengembalian::exists()){
             foreach ($data as $v){
                 DataPengembalian::updateOrCreate([
-                    'id_refund' => $data[$order]['id_refund']
+                    'id' => $data[$order]['id_refund']
                 ],[
                     'id_refund' => $data[$order]['id_refund'],
                     'id' => $data[$order]['id'],
-                    // 'id_barang' => $data[$order]['id_barang'],
-                    // 'id_user' => $data[$order]['id_user'],
                     'nama_pengguna' => $data[$order]['nama_pengguna'],
                     'alamat' => $data[$order]['alamat'],
                     'no_hp' => $data[$order]['no_hp'],
                     'jumlah_pesanan' => $data[$order]['jumlah_pesanan'],
-                    // 'total_harga' => $data[$order]['total_harga'],
                     'status' => $data[$order]['status'],
                     'resi' => $data[$order]['resi'],
                     'nama_barang' => $data[$order]['nama_barang'],

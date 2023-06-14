@@ -20,10 +20,15 @@ use App\Http\Controllers\DataPengembalianController;
 */
 
 // PROBIS PICKUP
-Route::get('pickup/fetch', [DataPengemasanController::class, 'fetchDataFromAPI']); //untuk ambil data dari api
-Route::get('pickup', [DataPengemasanController::class, 'index']);
+Route::get('pickup/fetch', [DataPengemasanController::class, 'fetchDataFromAPI']); //untuk ambil data dari api inventory 
+Route::get('pickup', [DataPengemasanController::class, 'index']); //Yang ini masuk juga ke probis pengiriman data untuk get barang
 Route::get('pickup/{id}', [DataPengemasanController::class, 'showbyid']); //untuk ambil data berdasarkan id
+
+// PROBIS PEMBERIAN RESI
 Route::put('pickup/{id_pengemasan}', [DataPengemasanController::class, 'update']); //ini untuk update
+
+// PROBIS UPDATE PELACAKAN DAN PEMANTAUAN
+Route::put('/pengiriman/{id_pengemasan}', [DataPengemasanController::class, 'updateStatus']);
 
 // PROBIS PENGEMBALIAN BARANG
 Route::get('return', [DataPengembalianController::class, 'return']); //fetch
@@ -34,8 +39,6 @@ Route::get('return/{id}', [DataPengembalianController::class, 'showbyid']);
 
 // Route::get('return/{id}', [DataShippingController::class, 'returnbyid']);
 
-// PROBIS UPDATE PELACAKAN DAN PEMANTAUAN
-Route::put('/pengiriman/{id_pengemasan}', [DataPengemasanController::class, 'updateStatus']);
 
 
 
